@@ -21,9 +21,9 @@ resources:
 - people/namespace.yaml
 
   #sso
-- sso/sso-namespace.yaml
-- sso/sso-operatorgroup.yaml
-- sso/sso-subscription.yaml
+- sso/namespace.yaml
+- sso/operatorgroup.yaml
+- sso/subscription.yaml
 
   #tools
 - tools/namespace.yaml
