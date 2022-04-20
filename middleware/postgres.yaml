@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: List
-metadata: {}
+metadata:
+  namespace: canteen
 items:
 - apiVersion: apps/v1
   kind: Deployment
