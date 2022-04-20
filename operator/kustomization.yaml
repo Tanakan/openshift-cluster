@@ -5,4 +5,3 @@ resources:
 - sso/sso-namespace.yaml
 - sso/sso-operatorgroup.yaml
 - sso/sso-subscription.yaml
-- sso/keycloak.yaml
