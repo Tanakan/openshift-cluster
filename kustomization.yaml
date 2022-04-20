@@ -2,3 +2,7 @@ resources:
 - 3scale/3scale-namespace.yaml
 - 3scale/3scale-operatorgroup.yaml
 - 3scale/3scale-subscription.yaml
+- sso/sso-namespace.yaml
+- sso/sso-operatorgroup.yaml
+- sso/sso-subscription.yaml
+- sso/keycloak.yaml
