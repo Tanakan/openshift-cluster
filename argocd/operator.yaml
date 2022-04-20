@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: test
+  name: operator
   namespace: openshift-gitops
 spec:
   destination:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: 3scale
+    path: operator
     repoURL: https://github.com/Tanakan/openshift-cluster
     targetRevision: HEAD
