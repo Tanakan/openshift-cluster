@@ -1,3 +1,3 @@
 resources:
 - 3scale/3scale-namespace.yaml
-- 3scale/3scale-operator.yaml
+- 3scale/3scale-subscription.yaml
