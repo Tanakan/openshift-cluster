@@ -5,7 +5,6 @@ metadata:
   namespace: 3scale
 spec:
   channel: threescale-2.11
-  installPlanApproval: Automatic
   name: 3scale-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
