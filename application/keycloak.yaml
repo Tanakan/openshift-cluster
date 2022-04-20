@@ -1,7 +1,7 @@
-kind: Keycloak
 apiVersion: keycloak.org/v1alpha1
+kind: Keycloak
 metadata:
-  name: example-keycloak
+  name: keycloak
   labels:
     app: sso
   namespace: sso
