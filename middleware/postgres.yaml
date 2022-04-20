@@ -11,6 +11,7 @@ items:
       app.kubernetes.io/component: menudb
       app.kubernetes.io/instance: menudb
     name: menudb
+    namespace: canteen
   spec:
     replicas: 1
     selector:
@@ -43,6 +44,7 @@ items:
       app.kubernetes.io/component: menudb
       app.kubernetes.io/instance: menudb
     name: menudb
+    namespace: canteen
   spec:
     ports:
     - name: 5432-tcp
