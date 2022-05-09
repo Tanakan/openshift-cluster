@@ -1,12 +1,13 @@
 # 前提条件
-- `OpenShift 4.9` がインストールされていること(4.10だと`NFS Provisioner Operator`がないため動作しない)
+- `OpenShift 4.9` がインストールされていること  
+  (4.10だと`NFS Provisioner Operator`がないため動作しない)
 
 ## 事前準備
 
 ### 1. GiteaのOperator設定
 以下コマンドでプロジェクトを作成します。  
 `oc new-project git` 
-以下コマンドでGiteaをOperatorHubに追加します。 
+以下コマンドでGiteaをOperatorHubに追加します。  
 `oc apply -f https://raw.githubusercontent.com/redhat-gpte-devopsautomation/gitea-operator/master/catalog_source.yaml`
 
 ### 2. Operatorのインストール
@@ -43,7 +44,7 @@ cat << EOF | oc create -f -
 EOF
 ```
 
-以下のコマンドで`"Successful"`が返ってくれば成功
+以下のコマンドで`"Successful"`が返ってくれば成功  
 `oc get giteas.gpte.opentlc.com gitea -n git -o json | jq .status.conditions[0].reason`
 
 
@@ -99,28 +100,28 @@ cat << EOF | oc create -f -
           workspacePVCStorageClassName: ''
 EOF
 ```
-以下コマンドで`Available`が返ってくれば成功
+以下コマンドで`Available`が返ってくれば成功  
 `oc get checluster -n openshift-workspaces codeready-workspaces -o json | jq .status.cheClusterRunning` 
 
 ### 5. Gitの設定
-以下コマンドでHOSTを確認
-`oc get route gitea -n git`
-以下URLでログイン
-`https://<確認したHOST>` 
-username: `lab-user` 
+以下コマンドでHOSTを確認  
+`oc get route gitea -n git`  
+以下URLでログイン  
+`https://<確認したHOST>`   
+username: `lab-user`   
 password: `openshift` 
 
 
-cloneして書き換えます。 
-`apimanager.yaml`の`wildcarddomain`を以下の値に書き換える
-`oc get ingresses.config/cluster -o json | jq -r .spec.domain`
-commitする。 
+cloneして以下を書き換えたあと、pushする。
+- `apimanager.yaml`の`wildcarddomain`を以下の値に書き換える  
+  `oc get ingresses.config/cluster -o json | jq -r .spec.domain`
+
  
 ### 6. GitOpsの設定 
-権限付与
+権限付与する  
 `oc adm policy add-cluster-role-to-user edit system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller`
 
-ログインする
+ログインする  
 `oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops`
 
 ### 7. Middlewareのデプロイ (約5分)
