@@ -1,0 +1,15 @@
+kind: KeycloakClient
+apiVersion: keycloak.org/v1alpha1
+metadata:
+  name: 3scale-admin
+  labels:
+    app: sso
+  namespace: sso
+spec:
+  realmSelector:
+    matchLabels:
+      app: sso
+  client:
+    clientId: 3scale-admin
+    clientAuthenticatorType: client-secret
+    serviceAccountsEnabled: true
