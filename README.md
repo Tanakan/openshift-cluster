@@ -1,6 +1,5 @@
 # 前提条件
-- `OpenShift 4.9` がインストールされていること
-(4.10だと`NFS Provisioner Operator`がないため動作しない)
+- `OpenShift 4.9` がインストールされていること(4.10だと`NFS Provisioner Operator`がないため動作しない)
 
 ## 事前準備
 
