@@ -1,5 +1,5 @@
 # 前提条件
-- `OpenShift 4.9` がインストールされていること 
+- `OpenShift 4.9` がインストールされていること
   (4.10だと`NFS Provisioner Operator`がないため動作しない)
 
 ## 事前準備
@@ -44,8 +44,9 @@ cat << EOF | oc create -f -
 EOF
 ```
 
+以下のコマンドで`"Successful"`が返ってくれば成功
 `oc get giteas.gpte.opentlc.com gitea -n git -o json | jq .status.conditions[0].reason`
-`"Successful"`が返ってくれば成功
+
 
 ### 4. Workspacesのデプロイ (約10分)
 停止しないように設定必要
@@ -131,7 +132,6 @@ commitする。
 
 
 ### 8. デモアプリのデプロイ (Tekton)
-初期状態どうするか....
 - WebApp
   - 社食アプリ(SpringBoot)
       Confidential
@@ -139,8 +139,6 @@ commitする。
       Confidential
   - Healthcare Manager (SSR)
       Public client
-    - これは外部サービス(SaaS)の位置付け
-      Client Secret渡して連携するイメージ
 
 ### 9. 3scaleの設定
 - OIDCで連携する設定
