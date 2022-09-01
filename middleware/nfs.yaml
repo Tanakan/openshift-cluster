@@ -6,6 +6,9 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
+  nfsImageConfiguration:
+    image: quay.io/kubernetes_incubator/nfs-provisioner:latest
+    pullPolicy: IfNotPresent
   scForNFS: nfs
   scForNFSPvc: gp2
-  storageSize: 1G
+  storageSize: 1Gi
