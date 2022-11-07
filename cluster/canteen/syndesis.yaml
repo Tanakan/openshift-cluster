@@ -1,0 +1,15 @@
+kind: Syndesis
+apiVersion: syndesis.io/v1beta3
+metadata:
+  name: app
+  namespace: canteen
+spec:
+  addons:
+    jaeger:
+      enabled: true
+    ops:
+      enabled: false
+    publicApi:
+      enabled: false
+    todo:
+      enabled: false
