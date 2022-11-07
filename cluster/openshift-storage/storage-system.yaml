@@ -3,8 +3,6 @@ kind: StorageSystem
 metadata:
   name: ocs-storagecluster-storagesystem
   namespace: openshift-storage
-  annotations:
-    argocd.argoproj.io/hook: PreSync
 spec:
   kind: storagecluster.ocs.openshift.io/v1
   name: ocs-storagecluster

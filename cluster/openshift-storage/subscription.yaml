@@ -5,8 +5,6 @@ metadata:
     operators.coreos.com/odf-operator.openshift-storage: ''
   name: odf-operator
   namespace: openshift-storage
-  annotations:
-    argocd.argoproj.io/hook: PreSync
 spec:
   channel: stable-4.9
   installPlanApproval: Automatic

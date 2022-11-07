@@ -5,7 +5,6 @@ metadata:
     storagesystem.odf.openshift.io/watched-by: ocs-storagecluster-storagesystem
     uninstall.ocs.openshift.io/cleanup-policy: delete
     uninstall.ocs.openshift.io/mode: graceful
-    argocd.argoproj.io/hook: PreSync
   name: ocs-storagecluster
   namespace: openshift-storage
 spec:
