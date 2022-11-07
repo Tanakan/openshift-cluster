@@ -6,3 +6,5 @@ metadata:
 spec:
   targetNamespaces:
     - openshift-storage
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"

@@ -3,6 +3,7 @@ kind: StorageSystem
 metadata:
   name: ocs-storagecluster-storagesystem
   namespace: openshift-storage
+  argocd.argoproj.io/sync-wave: "-1"
 spec:
   kind: storagecluster.ocs.openshift.io/v1
   name: ocs-storagecluster

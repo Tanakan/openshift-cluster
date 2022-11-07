@@ -5,6 +5,7 @@ metadata:
     operators.coreos.com/odf-operator.openshift-storage: ''
   name: odf-operator
   namespace: openshift-storage
+  argocd.argoproj.io/sync-wave: "-1"
 spec:
   channel: stable-4.9
   installPlanApproval: Automatic
