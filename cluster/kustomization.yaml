@@ -3,7 +3,7 @@ resources:
 - openshift-storage/namespace.yaml
 - openshift-storage/operatorgroup.yaml
 - openshift-storage/subscription.yaml
-# - openshift-storage/storage-system.yaml
+- openshift-storage/storage-system.yaml
 # - openshift-storage/storage-cluster.yaml
 
   #3scale
