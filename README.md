@@ -1,23 +1,35 @@
+
+# Integration Boot Camp
+
+=======
+# フォルダ構成
+- application (アプリケーションを格納)
+  - backend (バックエンドアプリケーションを格納)
+  - frontend (フロントエンドアプリケーションを格納)
+- cluster (argocdで利用するファイルを格納)
+
 # 前提条件
-- `OpenShift 4.9` がインストールされていること  
-  (4.10だと`NFS Provisioner Operator`がないため動作しない)
+- `OpenShift 4.10` がインストールされていること  
 
 ## 事前準備
 
-### 1. GiteaのOperator設定
-以下コマンドでプロジェクトを作成します。  
+### 1. Web Terminalのインストール
+ダッシュボードから`Web Terminal`をインストールする
+
+### 2. GiteaのOperator設定
+1.  以下コマンドでプロジェクトを作成します。  
 `oc new-project git` 
-以下コマンドでGiteaをOperatorHubに追加します。  
+2. 以下コマンドでGiteaをOperatorHubに追加します。  
 `oc apply -f https://raw.githubusercontent.com/redhat-gpte-devopsautomation/gitea-operator/master/catalog_source.yaml`
 
-### 2. Operatorのインストール
+### 3. Operatorのインストール
 ダッシュボードから以下のOperatorをインストールします。 
 - Red Hat OpenShift GitOps
 - Red Hat OpenShift Pipelines
 - Red Hat CodeReady Workspaces
 - Gitea Operator
 
-### 3. Giteaのデプロイ (約5分)
+### 4. Giteaのデプロイ (約5分)
 以下のコマンドでデプロイします。 
 ```
 cat << EOF | oc create -f -
@@ -31,7 +43,7 @@ cat << EOF | oc create -f -
       giteaAdminUser: opentlc-mgr
       giteaAdminPassword: ""
       giteaAdminPasswordLength: 32
-      giteaAdminEmail: opentlc-mgr@redhat.com
+      giteaAdminEmail: test@example.com
       giteaCreateUsers: true
       giteaGenerateUserFormat: "lab-user"
       giteaUserNumber: 1
@@ -47,8 +59,7 @@ EOF
 以下のコマンドで`"Successful"`が返ってくれば成功  
 `oc get giteas.gpte.opentlc.com gitea -n git -o json | jq .status.conditions[0].reason`
 
-
-### 4. Workspacesのデプロイ (約10分)
+### 5. Workspacesのデプロイ (約10分)
 停止しないように設定必要
 ```
 cat << EOF | oc create -f -
@@ -103,7 +114,7 @@ EOF
 以下コマンドで`Available`が返ってくれば成功  
 `oc get checluster -n openshift-workspaces codeready-workspaces -o json | jq .status.cheClusterRunning` 
 
-### 5. Gitの設定
+### 6. Gitの設定
 以下コマンドでHOSTを確認  
 `oc get route gitea -n git`  
 以下URLでログイン  
@@ -111,27 +122,24 @@ EOF
 username: `lab-user`   
 password: `openshift` 
 
-
 cloneして以下を書き換えたあと、pushする。
 - `apimanager.yaml`の`wildcarddomain`を以下の値に書き換える  
   `oc get ingresses.config/cluster -o json | jq -r .spec.domain`
 
- 
-### 6. GitOpsの設定 
+### 7. GitOpsの設定 
 権限付与する  
-`oc adm policy add-cluster-role-to-user edit system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller`
+`oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller`
 
 ログインする  
 `oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops`
 
-### 7. Middlewareのデプロイ (約5分)
-- cluster
+### 8. Middlewareのデプロイ (約5分)
+- cluster  
   `argocd/cluster/cluster.yaml`をコピペしてアプリケーションを作る
 - middleware
 - `argocd/middleware/middleware.yaml`をコピペしてアプリケーションを作る 
 
-
-### 8. デモアプリのデプロイ (Tekton)
+### 9. デモアプリのデプロイ (Tekton)
 - WebApp
   - 社食アプリ(React)  
       Public client
@@ -140,10 +148,11 @@ cloneして以下を書き換えたあと、pushする。
   - Healthcare Manage(React)  
       Confidential
 
-### 9. 3scaleの設定
+### 10. 3scaleの設定
 - OIDCで連携する設定
 - Policy(Scope)の設定
-  まずは設定しないで疎通確認
+  まずは設定しないで疎通確認  
+  https://access.redhat.com/documentation/ja-jp/red_hat_3scale_api_management/2.7/html-single/administering_the_api_gateway/index#_configuring_zync_que_to_use_custom_ca_certificates
 
-### 10. Keycloakの設定
+### 11. Keycloakの設定
 各WebアプリにClientIDやらを設定する

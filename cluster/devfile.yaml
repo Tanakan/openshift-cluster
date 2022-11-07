@@ -1,6 +1,0 @@
-apiVersion: 1.0.0
-metadata:
-  generateName: manifest-
-components:
-  - id: redhat/vscode-yaml/latest
-    type: chePlugin
