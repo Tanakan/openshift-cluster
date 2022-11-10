@@ -5,7 +5,4 @@ metadata:
   namespace: 3scale
 spec:
   wildcardDomain: apps.cluster-c8p96.c8p96.sandbox675.opentlc.com
-  system:
-    fileStorage: 
-      persistentVolumeClaim:
-        storageClassName: ocs-storagecluster-cephfs
+  resourceRequirementsEnabled: false
