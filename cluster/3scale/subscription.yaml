@@ -4,6 +4,8 @@ kind: Subscription
 metadata:
   name: 3scale-operator
   namespace: 3scale
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   channel: threescale-2.11
   name: 3scale-operator
