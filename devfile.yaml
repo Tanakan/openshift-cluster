@@ -1,6 +1,6 @@
 apiVersion: 1.0.0
 metadata:
-  generateName: manifest-
+  generateName: dojo
 components:
   - id: redhat/vscode-yaml/latest
     type: chePlugin
