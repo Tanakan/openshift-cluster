@@ -137,7 +137,7 @@ username: `lab-user`
 password: `openshift` 
 
 cloneして以下を書き換えたあと、pushする。
-- `cluster/apimanager.yaml`の`<wildcardDomain>`を以下の値に書き換える  
+- `manifest/base/3sacle/apimanager.yaml`の`<wildcardDomain>`を以下の値に書き換える  
   `oc get ingresses.config/cluster -o json | jq -r .spec.domain`
   
 
@@ -165,7 +165,7 @@ cat << EOF | oc create -f -
     project: default
     source:
       path: manifest/overlays/prod
-      repoURL: <GiteaURL>
+      repoURL: https://gitea-git.apps.cluster-5pt7w.5pt7w.sandbox2167.opentlc.com/lab-user/openshift-cluster
       targetRevision: HEAD
     syncPolicy:
       automated: {}
