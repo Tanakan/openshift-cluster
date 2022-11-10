@@ -164,8 +164,8 @@ cat << EOF | oc create -f -
       server: https://kubernetes.default.svc
     project: default
     source:
-      path: manifest/overlays/4.10
-      repoURL: https://gitea-git.apps.cluster-7hcvk.7hcvk.sandbox2542.opentlc.com/lab-user/openshift-cluster
+      path: manifest/overlays/prod
+      repoURL: <GiteaURL>
       targetRevision: HEAD
     syncPolicy:
       automated: {}
