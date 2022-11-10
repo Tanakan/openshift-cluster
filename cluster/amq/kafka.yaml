@@ -3,6 +3,8 @@ apiVersion: kafka.strimzi.io/v1beta2
 metadata:
   name: my-cluster
   namespace: amq
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   kafka:
     version: 3.1.0

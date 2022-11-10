@@ -3,6 +3,8 @@ apiVersion: syndesis.io/v1beta3
 metadata:
   name: app
   namespace: canteen
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   addons:
     jaeger:

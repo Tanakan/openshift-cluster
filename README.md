@@ -128,7 +128,7 @@ cloneして以下を書き換えたあと、pushする。
 
 ### 7. GitOpsの設定 
 権限付与する  
-`oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller`
+`oc adm policy add-cluster-role-to-user edit system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller`
 
 ログインする  
 `oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops`

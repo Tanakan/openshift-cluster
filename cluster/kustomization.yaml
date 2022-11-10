@@ -1,16 +1,16 @@
 resources:
   #openshift-storage
-# - openshift-storage/namespace.yaml
-# - openshift-storage/operatorgroup.yaml
-# - openshift-storage/subscription.yaml
-# - openshift-storage/storage-system.yaml
-# - openshift-storage/storage-cluster.yaml
+- openshift-storage/namespace.yaml
+- openshift-storage/operatorgroup.yaml
+- openshift-storage/subscription.yaml
+- openshift-storage/storage-system.yaml
+- openshift-storage/storage-cluster.yaml
 
   #3scale
-- 3scale/namespace.yaml
-- 3scale/operatorgroup.yaml
-- 3scale/subscription.yaml
-- 3scale/api-manager.yaml
+# - 3scale/namespace.yaml
+# - 3scale/operatorgroup.yaml
+# - 3scale/subscription.yaml
+# - 3scale/api-manager.yaml
 
   #amq
 # - amq/namespace.yaml
