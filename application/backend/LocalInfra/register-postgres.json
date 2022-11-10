@@ -1,0 +1,15 @@
+{
+    "name": "userProfile-connector",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "tasks.max": "1",
+        "database.hostname": "employeeDB",
+        "database.port": "5432",
+        "database.user": "employee",
+        "database.password": "password",
+        "database.dbname" : "employee",
+        "database.server.name": "employee",
+        "schema.include.list": "public",
+        "plugin.name": "pgoutput" 
+    }
+}
