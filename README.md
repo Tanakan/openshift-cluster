@@ -19,8 +19,22 @@
 ### 2. GiteaのOperator設定
 1.  以下コマンドでプロジェクトを作成します。  
 `oc new-project git` 
+
 2. 以下コマンドでGiteaをOperatorHubに追加します。  
-`oc apply -f https://raw.githubusercontent.com/redhat-gpte-devopsautomation/gitea-operator/master/catalog_source.yaml`
+```
+oc apply -f - <<EOF
+  apiVersion: operators.coreos.com/v1alpha1
+  kind: CatalogSource
+  metadata:
+    name: redhat-gpte-gitea
+    namespace: openshift-marketplace
+  spec:
+    sourceType: grpc
+    image: quay.io/gpte-devops-automation/gitea-catalog:latest
+    displayName: Red Hat GPTE (Gitea)
+    publisher: Red Hat GPTE
+EOF
+```
 
 ### 3. Operatorのインストール
 ダッシュボードから以下のOperatorをインストールします。 
@@ -32,27 +46,27 @@
 ### 4. Giteaのデプロイ (約5分)
 以下のコマンドでデプロイします。 
 ```
-cat << EOF | oc create -f -
-    apiVersion: gpte.opentlc.com/v1
-    kind: Gitea
-    metadata:
-      name: gitea
-      namespace: git
-    spec:
-      giteaSsl: true
-      giteaAdminUser: opentlc-mgr
-      giteaAdminPassword: ""
-      giteaAdminPasswordLength: 32
-      giteaAdminEmail: test@example.com
-      giteaCreateUsers: true
-      giteaGenerateUserFormat: "lab-user"
-      giteaUserNumber: 1
-      giteaUserPassword: openshift
-      giteaMigrateRepositories: true
-      giteaRepositoriesList:
-      - repo: https://github.com/Tanakan/openshift-cluster.git
-        name: openshift-cluster
-        private: false
+oc create -f - << EOF
+  apiVersion: gpte.opentlc.com/v1
+  kind: Gitea
+  metadata:
+    name: gitea
+    namespace: git
+  spec:
+    giteaSsl: true
+    giteaAdminUser: opentlc-mgr
+    giteaAdminPassword: ""
+    giteaAdminPasswordLength: 32
+    giteaAdminEmail: test@example.com
+    giteaCreateUsers: true
+    giteaGenerateUserFormat: "lab-user"
+    giteaUserNumber: 1
+    giteaUserPassword: openshift
+    giteaMigrateRepositories: true
+    giteaRepositoriesList:
+    - repo: https://github.com/Tanakan/openshift-cluster.git
+      name: openshift-cluster
+      private: false
 EOF
 ```
 
@@ -123,8 +137,9 @@ username: `lab-user`
 password: `openshift` 
 
 cloneして以下を書き換えたあと、pushする。
-- `apimanager.yaml`の`wildcarddomain`を以下の値に書き換える  
+- `cluster/apimanager.yaml`の`<wildcardDomain>`を以下の値に書き換える  
   `oc get ingresses.config/cluster -o json | jq -r .spec.domain`
+  
 
 ### 7. GitOpsの設定 
 権限付与する  
@@ -134,10 +149,28 @@ cloneして以下を書き換えたあと、pushする。
 `oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops`
 
 ### 8. Middlewareのデプロイ (約5分)
-- cluster  
-  `argocd/cluster/cluster.yaml`をコピペしてアプリケーションを作る
-- middleware
-- `argocd/middleware/middleware.yaml`をコピペしてアプリケーションを作る 
+<GiteaURL>`を以下に値に書き換える
+`https://<hostname>/lab-user/openshift-cluster`
+<hostname>は`oc get route gitea -n git`取得する
+```
+cat << EOF | oc create -f -
+  apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    name: cluster
+    namespace: openshift-gitops
+  spec:
+    destination:
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: manifest/overlays/4.10
+      repoURL: https://gitea-git.apps.cluster-7hcvk.7hcvk.sandbox2542.opentlc.com/lab-user/openshift-cluster
+      targetRevision: HEAD
+    syncPolicy:
+      automated: {}
+EOF
+```
 
 ### 9. デモアプリのデプロイ (Tekton)
 - WebApp

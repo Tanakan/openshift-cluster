@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
-  wildcardDomain: <Domain>
+  wildcardDomain: <wildcardDomain>
   system:
     fileStorage: 
       persistentVolumeClaim:
