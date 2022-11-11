@@ -50,17 +50,16 @@ public class MenuApplicationTests {
 	}
 
 	@Test
-	public void getMenu_400() throws Exception {
+	public void getMenu_inValidMenuID_400() throws Exception {
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/abc")).andReturn();
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(400, status);
 	}
 
 	@Test
-	public void getMenu_404() throws Exception {
+	public void getMenu_nonExistingMenuID_404() throws Exception {
 		MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/1111111")).andReturn();
 		int status = mvcResult.getResponse().getStatus();
 		assertEquals(404, status);
 	}
-
 }

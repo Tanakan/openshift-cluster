@@ -27,7 +27,7 @@ public class MenuController {
 	private ModelMapper modelMapper;
 
 	@GetMapping
-	public List<MenuDTO> listMenues() {
+	public List<MenuDTO> listMenus() {
 		List<Menu> menues = menuService.listMenus();
 		List<MenuDTO> response = modelMapper.map(menues, new TypeToken<List<MenuDTO>>() {
 		}.getType());
