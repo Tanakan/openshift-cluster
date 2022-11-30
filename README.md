@@ -128,6 +128,7 @@ EOF
 以下コマンドで`Available`が返ってくれば成功  
 `oc get checluster -n openshift-workspaces codeready-workspaces -o json | jq .status.cheClusterRunning` 
 
+
 ### 6. Gitの設定
 以下コマンドでHOSTを確認  
 `oc get route gitea -n git`  
@@ -142,16 +143,17 @@ cloneして以下を書き換えたあと、pushする。
   
 
 ### 7. GitOpsの設定 
-権限付与する  
+権限付与する
 `oc adm policy add-cluster-role-to-user edit system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller`
 
-ログインする  
-`oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops`
+### 8. ODFの設定 
 
-### 8. Middlewareのデプロイ (約5分)
-<GiteaURL>`を以下に値に書き換える
-`https://<hostname>/lab-user/openshift-cluster`
-<hostname>は`oc get route gitea -n git`取得する
+`oc get node --selector='node-role.kubernetes.io/worker' -o name | xargs -Inode oc label node cluster.ocs.openshift.io/openshift-storage=''`
+
+
+### 9. Middlewareのデプロイ (約5分)
+<GiteaURL>`を以下コマンドで取得した値に書き換える
+`cat <(echo -n https://) <(oc get route gitea -n git -o json | jq -rj .spec.host) <(echo /lab-user/openshift-cluster)`
 ```
 cat << EOF | oc create -f -
   apiVersion: argoproj.io/v1alpha1
@@ -165,27 +167,29 @@ cat << EOF | oc create -f -
     project: default
     source:
       path: manifest/overlays/prod
-      repoURL: https://gitea-git.apps.cluster-5pt7w.5pt7w.sandbox2167.opentlc.com/lab-user/openshift-cluster
+      repoURL: <GiteaURL>
       targetRevision: HEAD
     syncPolicy:
       automated: {}
 EOF
 ```
+ログインして、デプロイの状態を確認できる
+`oc extract secret/openshift-gitops-cluster --to=- -n openshift-gitops`
 
-### 9. デモアプリのデプロイ (Tekton)
+### 10. デモアプリのデプロイ (Tekton)
 - WebApp
-  - 社食アプリ(React)  
+  - 社食アプリ(React) 
       Public client
   - 社内決済利用確認アプリ(React)  
       Public client
   - Healthcare Manage(React)  
       Confidential
 
-### 10. 3scaleの設定
+### 11. 3scaleの設定
 - OIDCで連携する設定
 - Policy(Scope)の設定
   まずは設定しないで疎通確認  
   https://access.redhat.com/documentation/ja-jp/red_hat_3scale_api_management/2.7/html-single/administering_the_api_gateway/index#_configuring_zync_que_to_use_custom_ca_certificates
 
-### 11. Keycloakの設定
+### 12. Keycloakの設定
 各WebアプリにClientIDやらを設定する

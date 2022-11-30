@@ -2,6 +2,8 @@ kind: KeycloakClient
 apiVersion: keycloak.org/v1alpha1
 metadata:
   name: 3scale-admin
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   labels:
     app: sso
   namespace: sso

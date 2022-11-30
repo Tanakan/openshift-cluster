@@ -2,42 +2,42 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  #openshift-storage
+# openshift-storage
 - openshift-storage/namespace.yaml
 - openshift-storage/operatorgroup.yaml
 - openshift-storage/subscription.yaml
 - openshift-storage/storage-system.yaml
 - openshift-storage/storage-cluster.yaml
 
-  #3scale
-# - 3scale/namespace.yaml
-# - 3scale/operatorgroup.yaml
-# - 3scale/subscription.yaml
-# - 3scale/api-manager.yaml
+# 3scale
+- 3scale/namespace.yaml
+- 3scale/operatorgroup.yaml
+- 3scale/subscription.yaml
+- 3scale/api-manager.yaml
 
-  #amq
-# - amq/namespace.yaml
-# - amq/operatorgroup.yaml
-# - amq/subscription.yaml
-# - amq/kafka.yaml
+# amq
+- amq/namespace.yaml
+- amq/operatorgroup.yaml
+- amq/subscription.yaml
+- amq/kafka.yaml
 
-#   #canteen
-# - canteen/namespace.yaml
-# - canteen/operatorgroup.yaml
-# - canteen/subscription.yaml
-# - canteen/postgres-menu.yaml
-# - canteen/postgres-payment.yaml
-# - canteen/syndesis.yaml
+# canteen
+- canteen/namespace.yaml
+- canteen/operatorgroup.yaml
+- canteen/subscription.yaml
+- canteen/postgres-menu.yaml
+- canteen/postgres-payment.yaml
+- canteen/syndesis.yaml
 
-#   #payroll
-# - payroll/namespace.yaml
-# - payroll/postgres-transaction.yaml
+# payroll
+- payroll/namespace.yaml
+- payroll/postgres-transaction.yaml
 
-#   #people
-# - people/namespace.yaml
+# people
+- people/namespace.yaml
 
-#   #sso
-# - sso/namespace.yaml
-# - sso/operatorgroup.yaml
-# - sso/subscription.yaml
-# - sso/keycloak.yaml
+# sso
+- sso/namespace.yaml
+- sso/operatorgroup.yaml
+- sso/subscription.yaml
+- sso/keycloak.yaml
